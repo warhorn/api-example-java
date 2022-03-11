@@ -3,12 +3,25 @@
  */
 package warhorn.example;
 
+import org.mockito.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
-    }
+  static final String SLUG = "deadbeef";
+  static final String TOKEN = "foobar";
+
+  @Disabled("Mocking doesn't work for some reason I haven't figured out yet")
+  @Test
+  void appGetsAnEvent() {
+    String expected = "mock value";
+
+    App app = Mockito.mock(App.class, TOKEN);
+    Mockito.when(app.postGraphQLRequest(ArgumentMatchers.any())).thenReturn(expected);
+
+    String actual = app.getEvent(SLUG);
+
+    assertEquals(expected, actual);
+  }
 }

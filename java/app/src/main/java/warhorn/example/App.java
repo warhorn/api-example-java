@@ -17,17 +17,19 @@ public class App {
     this.token = token;
   }
 
+  public String postGraphQLRequest(GetEventRequest request) {
+    return this.client.post()
+      .header("Authorization", String.format("Bearer %s", this.token))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON)
+      .bodyValue(request.bodyValue())
+      .retrieve()
+      .bodyToMono(String.class).block();
+  }
+
   public String getEvent(String slug) {
     GetEventRequest request = new GetEventRequest(slug);
-
-    return this.client.post()
-        .header("Authorization", String.format("Bearer %s", this.token))
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON)
-        .bodyValue(request.bodyValue())
-        .retrieve()
-        .bodyToMono(String.class).block();
-
+    return this.postGraphQLRequest(request);
   }
 
   public static void main(String[] args) {
