@@ -11,7 +11,7 @@ BUILD SUCCESSFUL in 309ms
 7 actionable tasks: 7 up-to-date
 ```
 
-Yes, this did actually run the tests! *cough* test (singular) *cough*
+Yes, this did actually run the tests!
 
 ## Run the app at the command line
 
