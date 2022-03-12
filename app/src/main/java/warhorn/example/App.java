@@ -6,7 +6,7 @@ import warhorn.example.api.Registration;
 import warhorn.example.graphql.GraphQLWebClient;
 
 public class App {
-  public static final String ENDPOINT_URL = "https://staging.warhorn.net/graphql";
+  public static final String ENDPOINT_URL = "https://warhorn.net/graphql";
   public static final String USAGE = """
       Usage: gradlew run --args SLUG EMAIL <ROLE>
 
