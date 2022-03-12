@@ -4,7 +4,7 @@ This is an example of how to use the [Warhorn API](https://warhorn.net/developer
 
 ## Build the app and run the tests
 
-```sh
+```text
 $ ./gradlew build
 
 BUILD SUCCESSFUL in 309ms
@@ -22,7 +22,7 @@ The command line arguments are as follows:
 
 Note that the app is actually run by Gradle. It requires you to wrap this program's command line arguments in an `--args` command line argument of its own. Also note that you need to wrap this program's arguments in double quotes. See the example below.
 
-```sh
+```text
 $ export WARHORN_API_TOKEN=<your API token>
 $ ./gradlew run --args "bionic-dwarf test@example.com"
 
@@ -31,9 +31,9 @@ $ ./gradlew run --args "bionic-dwarf test@example.com"
 
 BUILD SUCCESSFUL in 2s
 3 actionable tasks: 1 executed, 2 up-to-date
+```
 
 Yes, this did actually run the tests! (*cough* test *cough*)
-```
 
 ## Credit where it is due
 
