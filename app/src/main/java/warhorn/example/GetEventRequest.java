@@ -1,5 +1,7 @@
 package warhorn.example;
 
+import warhorn.example.graphql.GraphQLRequest;
+
 public class GetEventRequest extends GraphQLRequest {
   private static final String QUERY = """
       query GetEvent($slug: String!) {
@@ -12,8 +14,8 @@ public class GetEventRequest extends GraphQLRequest {
 
   private static final String OPERATION = "GetEvent";
 
-  GetEventRequest(String slug) {
+  public GetEventRequest(String slug) {
     super(QUERY, OPERATION);
-    this.variables.put("slug", slug);
+    setVariable("slug", slug);
   }
 }

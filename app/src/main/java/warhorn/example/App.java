@@ -1,5 +1,8 @@
 package warhorn.example;
 
+import warhorn.example.graphql.GraphQLResponse;
+import warhorn.example.graphql.GraphQLWebClient;
+
 public class App {
   public static final String ENDPOINT_URL = "https://staging.warhorn.net/graphql";
   public static final String USAGE = """

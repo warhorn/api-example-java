@@ -4,6 +4,10 @@
 package warhorn.example;
 
 import org.mockito.*;
+
+import warhorn.example.graphql.GraphQLResponse;
+import warhorn.example.graphql.GraphQLWebClient;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,4 @@
-package warhorn.example;
+package warhorn.example.graphql;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -9,7 +9,7 @@ public class GraphQLResponse {
   private final JsonNode data;
   private final ObjectMapper objectMapper;
 
-  GraphQLResponse(String body, ObjectMapper objectMapper) {
+  public GraphQLResponse(String body, ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
 
     // TODO: handle errors

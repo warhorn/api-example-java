@@ -1,4 +1,4 @@
-package warhorn.example;
+package warhorn.example.graphql;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
@@ -14,9 +14,13 @@ public class GraphQLRequest {
   @JsonProperty
   final Map<String, String> variables;
 
-  GraphQLRequest(String query, String operationName) {
+  public GraphQLRequest(String query, String operationName) {
     this.query = query;
     this.operationName = operationName;
     this.variables = new HashMap<String, String>();
+  }
+
+  public void setVariable(String key, String value) {
+    this.variables.put(key, value);
   }
 }

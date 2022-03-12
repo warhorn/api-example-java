@@ -1,4 +1,4 @@
-package warhorn.example;
+package warhorn.example.graphql;
 
 import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +11,7 @@ public class GraphQLWebClient {
   private final String token;
   private final ObjectMapper objectMapper;
 
-  GraphQLWebClient(String endpointUrl, String token) {
+  public GraphQLWebClient(String endpointUrl, String token) {
     this.client = WebClient.create(endpointUrl);
     this.token = token;
     this.objectMapper = new ObjectMapper();
