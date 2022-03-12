@@ -5,6 +5,7 @@ query FetchEventRegistration($email: String!, $slug: String!) {
       id
       title
     }
+    isClearedForSignup
     registrant {
       id
       email

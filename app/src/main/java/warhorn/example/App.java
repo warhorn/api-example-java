@@ -42,15 +42,13 @@ public class App {
       Registration registration = api.fetchEventRegistration(slug, email);
 
       if (registration != null) {
-        System.out.println(
-            String.format("Event: %s", registration.getEvent().getTitle()));
-        System.out.println(
-            String.format("Registration: %s (%s)",
-                registration.getRegistrant().getEmail(),
-                registration.getActivationState()));
-
+        System.out.println(String.format("Found an %s, %s registration for %s at %s.",
+            registration.getActivationState().toString().toLowerCase(),
+            registration.isClearedForSignup() ? "cleared" : "uncleared",
+            registration.getRegistrant().getEmail(),
+            registration.getEvent().getTitle()));
       } else {
-        System.out.println("Registration not found");
+        System.out.println("Registration not found. Double-check the slug and email address.");
       }
     } catch (GraphQLErrorsException e) {
       for (GraphQLError error : e.getErrors()) {
