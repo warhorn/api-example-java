@@ -1,6 +1,7 @@
 package warhorn.example.api;
 
 import java.util.HashMap;
+import java.util.Map;
 import warhorn.example.graphql.GraphQLError;
 import warhorn.example.graphql.GraphQLErrorsException;
 import warhorn.example.graphql.GraphQLRequest;
@@ -14,12 +15,27 @@ public class Api {
     this.client = client;
   }
 
+  public Registration assignRegistrationRole(Registration registration, EventRole role) {
+    Map<String, Object> variables = new HashMap<String, Object>();
+    AssignRegistrationRoleInput input = new AssignRegistrationRoleInput(
+        registration.getId(), role.getId());
+    variables.put("input", input);
+
+    GraphQLRequest request = GraphQLRequest.createFromResource(
+        "/AssignRegistrationRole.graphql",
+        "AssignRegistrationRole",
+        variables);
+    GraphQLResponse response = this.client.post(request);
+
+    return response.get("assignRegistrationRole/registration", Registration.class);
+  }
+
   public GraphQLWebClient getClient() {
     return this.client;
   }
 
   public Registration fetchEventRegistration(String slug, String email) {
-    HashMap<String, String> variables = new HashMap<String, String>();
+    Map<String, Object> variables = new HashMap<String, Object>();
     variables.put("slug", slug);
     variables.put("email", email);
 

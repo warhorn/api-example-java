@@ -1,0 +1,11 @@
+mutation AssignRegistrationRole($input: AssignRegistrationRoleInput!) {
+  assignRegistrationRole(input: $input) {
+    registration {
+      id
+      roles {
+        id
+        name
+      }
+    }
+  }
+}

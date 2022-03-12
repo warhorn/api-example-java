@@ -18,11 +18,13 @@ public class GraphQLWebClient {
   }
 
   public GraphQLResponse post(GraphQLRequest request) {
+    String body = serializeRequestBody(request);
+
     GraphQLResponse response = this.client.post()
         .header("Authorization", String.format("Bearer %s", this.token))
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
-        .bodyValue(serializeRequestBody(request))
+        .bodyValue(body)
         .retrieve()
         .bodyToMono(String.class)
         .map(it -> new GraphQLResponse(it, this.objectMapper))

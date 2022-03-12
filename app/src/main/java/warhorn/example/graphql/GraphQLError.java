@@ -1,5 +1,6 @@
 package warhorn.example.graphql;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,12 @@ public class GraphQLError {
   private List<GraphQLErrorLocation> locations;
   private String message;
   private List<String> path;
+
+  public GraphQLError() {
+    extensions = Collections.emptyMap();
+    locations = Collections.emptyList();
+    path = Collections.emptyList();
+  }
 
   public Map<String, Object> getExtensions() {
     return extensions;

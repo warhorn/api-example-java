@@ -18,12 +18,12 @@ public class GraphQLRequest {
   final String operationName;
 
   @JsonProperty
-  final Map<String, String> variables;
+  final Map<String, Object> variables;
 
-  public GraphQLRequest(String query, String operationName, Map<String, String> variables) {
+  public GraphQLRequest(String query, String operationName, Map<String, Object> variables) {
     this.query = query;
     this.operationName = operationName;
-    this.variables = new HashMap<String, String>(variables);
+    this.variables = new HashMap<String, Object>(variables);
   }
 
   public void setVariable(String key, String value) {
@@ -32,7 +32,7 @@ public class GraphQLRequest {
 
   public static GraphQLRequest createFromResource(String path,
       String operationName,
-      Map<String, String> variables) {
+      Map<String, Object> variables) {
     try {
       Resource resource = new ClassPathResource(path);
       InputStream inputStream = resource.getInputStream();

@@ -3,12 +3,21 @@ query FetchEventRegistration($email: String!, $slug: String!) {
     activationState
     event {
       id
+      roles {
+        id
+        name
+      }
       title
     }
+    id
     isClearedForSignup
     registrant {
       id
       email
+    }
+    roles {
+      id
+      name
     }
   }
 }

@@ -1,6 +1,9 @@
 package warhorn.example.api;
 
-public class Registration {
+import java.util.Collections;
+import java.util.List;
+
+public class Registration extends BaseNode {
   public enum ActivationState {
     ACTIVE,
     CANCELED,
@@ -9,8 +12,12 @@ public class Registration {
   private ActivationState activationState;
   private boolean isClearedForSignup;
   private Event event;
-  private String id;
   private User registrant;
+  private List<EventRole> roles;
+
+  public Registration() {
+    roles = Collections.emptyList();
+  }
 
   public ActivationState getActivationState() {
     return activationState;
@@ -20,12 +27,20 @@ public class Registration {
     return event;
   }
 
-  public String getId() {
-    return id;
-  }
-
   public User getRegistrant() {
     return registrant;
+  }
+
+  public List<EventRole> getRoles() {
+    return roles;
+  }
+
+  public boolean isActive() {
+    return activationState == ActivationState.ACTIVE;
+  }
+
+  public boolean isCanceled() {
+    return activationState == ActivationState.CANCELED;
   }
 
   public boolean isClearedForSignup() {
@@ -40,15 +55,15 @@ public class Registration {
     this.event = event;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
   public void setIsClearedForSignup(boolean isClearedForSignup) {
     this.isClearedForSignup = isClearedForSignup;
   }
 
   public void setRegistrant(User registrant) {
     this.registrant = registrant;
+  }
+
+  public void setRoles(List<EventRole> roles) {
+    this.roles = roles;
   }
 }

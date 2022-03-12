@@ -1,19 +1,26 @@
 package warhorn.example.api;
 
-public class Event {
-  private String id;
+import java.util.Collections;
+import java.util.List;
+
+public class Event extends BaseNode {
+  private List<EventRole> roles;
   private String title;
 
-  public String getId() {
-    return id;
+  public Event() {
+    roles = Collections.emptyList();
+  }
+
+  public List<EventRole> getRoles() {
+    return roles;
   }
 
   public String getTitle() {
     return title;
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void setRoles(List<EventRole> roles) {
+    this.roles = roles;
   }
 
   public void setTitle(String title) {

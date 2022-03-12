@@ -1,18 +1,20 @@
 package warhorn.example;
 
 import warhorn.example.api.Api;
+import warhorn.example.api.EventRole;
 import warhorn.example.api.Registration;
 import warhorn.example.graphql.GraphQLWebClient;
 
 public class App {
   public static final String ENDPOINT_URL = "https://staging.warhorn.net/graphql";
   public static final String USAGE = """
-      Usage: gradlew run --args SLUG EMAIL
+      Usage: gradlew run --args SLUG EMAIL <ROLE>
 
       Fetches the details of a Warhorn event registration.
 
         SLUG:   the unique identifier for the event (found in Warhorn event page URLs)
         EMAIL:  the email address of the user whose registration you want to find
+        ROLE:   the name of an event role to assign to the registration
 
       The WARHORN_API_TOKEN environment variable must contain a user or application access
       token for the Warhorn API. See https://warhorn.net/developers/docs/guides/access-tokens
@@ -20,20 +22,21 @@ public class App {
       """;
 
   public static void main(String[] args) {
-    if (args.length != 2) {
+    if (args.length < 2) {
       die(USAGE);
     }
 
-    String slug = args[0];
-    String email = args[1];
+    final String slug = args[0];
+    final String email = args[1];
+    final String roleName = args.length > 2 ? args[2] : null;
 
-    String token = System.getenv("WARHORN_API_TOKEN");
+    final String token = System.getenv("WARHORN_API_TOKEN");
     if (token == null) {
       die(USAGE);
     }
 
-    GraphQLWebClient client = new GraphQLWebClient(ENDPOINT_URL, token);
-    Api api = new Api(client);
+    final GraphQLWebClient client = new GraphQLWebClient(ENDPOINT_URL, token);
+    final Api api = new Api(client);
 
     api.doWithErrorHandling(() -> {
       Registration registration = api.fetchEventRegistration(slug, email);
@@ -44,6 +47,32 @@ public class App {
       }
 
       printRegistrationFoundBanner(registration);
+
+      if (registration.isCanceled()) {
+        printRegistrationCanceledBanner();
+        return;
+      }
+
+      if (roleName != null) {
+        final EventRole roleToAssign = registration.getEvent().getRoles().stream()
+            .filter(role -> role.getName().equals(roleName))
+            .findAny().orElse(null);
+        if (roleToAssign == null) {
+          printRoleNotFoundBanner(roleName);
+          return;
+        }
+
+        final EventRole existingRole = registration.getRoles().stream()
+            .filter(role -> role.getId().equals(roleToAssign.getId()))
+            .findAny().orElse(null);
+        if (existingRole != null) {
+          printRoleAlreadyAssigned(existingRole);
+        } else {
+          registration = api.assignRegistrationRole(registration, roleToAssign);
+          printRoleAssigned(roleToAssign);
+        }
+      }
+
     }, () -> die("\n\u274C Aborting due to API errors.", -2));
   }
 
@@ -63,8 +92,8 @@ public class App {
   }
 
   static void printRegistrationFoundBanner(Registration registration) {
-    System.out.println(String.format("\u2705 Found an %s, %s registration for %s at %s.",
-        registration.getActivationState().toString().toLowerCase(),
+    System.out.println(String.format("\u2705 %s, %s registration was found for %s at %s.",
+        registration.isActive() ? "An active" : "A canceled",
         registration.isClearedForSignup() ? "cleared" : "uncleared",
         registration.getRegistrant().getEmail(),
         registration.getEvent().getTitle()));
@@ -72,6 +101,28 @@ public class App {
 
   static void printRegistrationNotFoundBanner() {
     System.out.println(
-        "\u274C Registration not found. Double-check the event slug and email address.");
+        "\u274C The registration was not found. Double-check the event slug and email address.");
+  }
+
+  static void printRegistrationCanceledBanner() {
+    System.out.println(
+        "\n\u274C The registration cannot be updated since it has already been canceled.");
+  }
+
+  static void printRoleNotFoundBanner(String roleName) {
+    System.out.println(String.format(
+        "\u274C The %s role was not found for the event. Double-check the spelling and " +
+            "capitalization of the role name.",
+        roleName));
+  }
+
+  static void printRoleAlreadyAssigned(EventRole role) {
+    System.out.println(String.format(
+        "\u2705 The %s role was already assigned to the registration.", role.getName()));
+  }
+
+  static void printRoleAssigned(EventRole role) {
+    System.out.println(String.format(
+        "\u2705 The %s role was assigned to the registration.", role.getName()));
   }
 }
