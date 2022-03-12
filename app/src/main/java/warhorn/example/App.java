@@ -1,6 +1,8 @@
 package warhorn.example;
 
+import java.util.HashMap;
 import warhorn.example.domain.Event;
+import warhorn.example.graphql.GraphQLRequest;
 import warhorn.example.graphql.GraphQLResponse;
 import warhorn.example.graphql.GraphQLWebClient;
 
@@ -21,7 +23,13 @@ public class App {
   }
 
   public Event getEvent(String slug) {
-    GetEventRequest request = new GetEventRequest(slug);
+    HashMap<String, String> variables = new HashMap<String, String>();
+    variables.put("slug", slug);
+
+    GraphQLRequest request = GraphQLRequest.createFromResource(
+        "/GetEvent.graphql",
+        "GetEvent",
+        variables);
     GraphQLResponse response = this.client.post(request);
 
     return response.get("event", Event.class);

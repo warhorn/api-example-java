@@ -6,6 +6,7 @@ package warhorn.example;
 import org.mockito.*;
 
 import warhorn.example.domain.Event;
+import warhorn.example.graphql.GraphQLRequest;
 import warhorn.example.graphql.GraphQLResponse;
 import warhorn.example.graphql.GraphQLWebClient;
 
@@ -26,7 +27,7 @@ class AppTest {
     Mockito.when(response.get("event", Event.class)).thenReturn(expected);
 
     GraphQLWebClient client = Mockito.mock(GraphQLWebClient.class);
-    Mockito.when(client.post(ArgumentMatchers.any(GetEventRequest.class))).thenReturn(response);
+    Mockito.when(client.post(ArgumentMatchers.any(GraphQLRequest.class))).thenReturn(response);
 
     App app = new App(client);
     Event actual = app.getEvent(SLUG);
