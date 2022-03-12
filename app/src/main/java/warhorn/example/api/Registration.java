@@ -1,12 +1,17 @@
 package warhorn.example.api;
 
 public class Registration {
-  private String activationState;
+  public enum ActivationState {
+    ACTIVE,
+    CANCELED,
+  }
+
+  private ActivationState activationState;
   private Event event;
   private String id;
   private User registrant;
 
-  public String getActivationState() {
+  public ActivationState getActivationState() {
     return activationState;
   }
 
@@ -22,7 +27,7 @@ public class Registration {
     return registrant;
   }
 
-  public void setActivationState(String activationState) {
+  public void setActivationState(ActivationState activationState) {
     this.activationState = activationState;
   }
 

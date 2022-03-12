@@ -45,7 +45,10 @@ public class App {
         System.out.println(
             String.format("Event: %s", registration.getEvent().getTitle()));
         System.out.println(
-            String.format("Registration: %s", registration.getRegistrant().getEmail()));
+            String.format("Registration: %s (%s)",
+                registration.getRegistrant().getEmail(),
+                registration.getActivationState()));
+
       } else {
         System.out.println("Registration not found");
       }
