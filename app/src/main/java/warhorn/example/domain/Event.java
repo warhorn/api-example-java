@@ -1,4 +1,4 @@
-package warhorn.example;
+package warhorn.example.domain;
 
 public class Event {
   private String id;

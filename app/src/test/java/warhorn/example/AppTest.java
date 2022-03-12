@@ -5,6 +5,7 @@ package warhorn.example;
 
 import org.mockito.*;
 
+import warhorn.example.domain.Event;
 import warhorn.example.graphql.GraphQLResponse;
 import warhorn.example.graphql.GraphQLWebClient;
 

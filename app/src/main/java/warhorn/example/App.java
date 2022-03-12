@@ -1,5 +1,6 @@
 package warhorn.example;
 
+import warhorn.example.domain.Event;
 import warhorn.example.graphql.GraphQLResponse;
 import warhorn.example.graphql.GraphQLWebClient;
 
