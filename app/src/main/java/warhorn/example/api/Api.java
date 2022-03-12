@@ -16,16 +16,17 @@ public class Api {
     return this.client;
   }
 
-  public Event fetchEvent(String slug) {
+  public Registration fetchEventRegistration(String slug, String email) {
     HashMap<String, String> variables = new HashMap<String, String>();
     variables.put("slug", slug);
+    variables.put("email", email);
 
     GraphQLRequest request = GraphQLRequest.createFromResource(
-        "/FetchEvent.graphql",
-        "FetchEvent",
+        "/FetchEventRegistration.graphql",
+        "FetchEventRegistration",
         variables);
     GraphQLResponse response = this.client.post(request);
 
-    return response.get("event", Event.class);
+    return response.get("eventRegistration", Registration.class);
   }
 }

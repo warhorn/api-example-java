@@ -1,0 +1,13 @@
+query FetchEventRegistration($email: String!, $slug: String!) {
+  eventRegistration(email: $email, slug: $slug) {
+    activationState
+    event {
+      id
+      title
+    }
+    registrant {
+      id
+      email
+    }
+  }
+}

@@ -18,7 +18,7 @@ public class GraphQLWebClient {
   }
 
   public GraphQLResponse post(GraphQLRequest request) {
-    return this.client.post()
+    GraphQLResponse response = this.client.post()
         .header("Authorization", String.format("Bearer %s", this.token))
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
@@ -27,6 +27,10 @@ public class GraphQLWebClient {
         .bodyToMono(String.class)
         .map(it -> new GraphQLResponse(it, this.objectMapper))
         .block();
+
+    response.validateNoErrors();
+
+    return response;
   }
 
   private String serializeRequestBody(GraphQLRequest request) {

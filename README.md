@@ -11,7 +11,7 @@ BUILD SUCCESSFUL in 309ms
 
 ## Run
 
-Before running the program, you must store a [Warhorn API](https://warhorn.net/developers/docs/guides/access-tokens) token in the `WARHORN_API_TOKEN` environment variable.
+Before running the program, you must store a [Warhorn API access token](https://warhorn.net/developers/docs/guides/access-tokens) in the `WARHORN_API_TOKEN` environment variable.
 
 ```sh
 $ export WARHORN_API_TOKEN=<your API token>

@@ -13,23 +13,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ApiTest {
+  static final String EMAIL = "test@example.com";
   static final String SLUG = "deadbeef";
   static final String TOKEN = "foobar";
 
   @Test
   void testFetchEvent() {
-    Event expected = new Event();
+    Registration expected = new Registration();
     expected.setId("123");
-    expected.setTitle("test event");
+    expected.setEmail("text@example.com");
 
     GraphQLResponse response = Mockito.mock(GraphQLResponse.class);
-    Mockito.when(response.get("event", Event.class)).thenReturn(expected);
+    Mockito.when(response.get("eventRegistration", Registration.class)).thenReturn(expected);
 
     GraphQLWebClient client = Mockito.mock(GraphQLWebClient.class);
     Mockito.when(client.post(ArgumentMatchers.any(GraphQLRequest.class))).thenReturn(response);
 
     Api Api = new Api(client);
-    Event actual = Api.fetchEvent(SLUG);
+    Registration actual = Api.fetchEventRegistration(SLUG, EMAIL);
 
     assertEquals(expected, actual);
   }
