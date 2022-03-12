@@ -21,17 +21,19 @@ The command line arguments are as follows:
 
 1. `slug`: the unique identifier for the event (found in Warhorn event page URLs)
 2. `email`: the email address of the user whose registration you want to find
+3. `role`: the name of an event role to assign to the registration (optional)
 
 Note that the app is actually run by Gradle. It requires you to wrap this program's command line arguments in an `--args` command line argument of its own. Also note that you need to wrap this program's arguments in double quotes. See the example below.
 
 ```text
 $ export WARHORN_API_TOKEN=<your API token>
-$ ./gradlew run --args "bionic-dwarf test@example.com"
+$ ./gradlew run --args "bionic-dwarf bcm@warhorn.net GM"
 
 > Task :app:run
-✅ Found an active, cleared registration for test@example.com at Bionic Dwarf.
+✅ An active, cleared registration was found for bcm@warhorn.net at Bionic Dwarf.
+✅ The GM role was assigned to the registration.
 
-BUILD SUCCESSFUL in 2s
+BUILD SUCCESSFUL in 1s
 3 actionable tasks: 1 executed, 2 up-to-date
 ```
 

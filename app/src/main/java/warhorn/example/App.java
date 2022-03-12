@@ -14,7 +14,7 @@ public class App {
 
         SLUG:   the unique identifier for the event (found in Warhorn event page URLs)
         EMAIL:  the email address of the user whose registration you want to find
-        ROLE:   the name of an event role to assign to the registration
+        ROLE:   the name of an event role to assign to the registration (optional)
 
       The WARHORN_API_TOKEN environment variable must contain a user or application access
       token for the Warhorn API. See https://warhorn.net/developers/docs/guides/access-tokens
