@@ -8,7 +8,7 @@ import warhorn.example.graphql.GraphQLWebClient;
 public class App {
   public static final String ENDPOINT_URL = "https://warhorn.net/graphql";
   public static final String USAGE = """
-      Usage: gradlew run --args SLUG EMAIL <ROLE>
+      Usage: gradlew run --args \"SLUG EMAIL <ROLE>\"
 
       Clears a Warhorn event registration to sign up for games. Optionally also assigns an
       event role to the registration.
@@ -24,7 +24,7 @@ public class App {
 
   public static void main(String[] args) {
     if (args.length < 2) {
-      die(USAGE);
+      die(USAGE, 0);
     }
 
     final String slug = args[0];
@@ -33,7 +33,7 @@ public class App {
 
     final String token = System.getenv("WARHORN_API_TOKEN");
     if (token == null) {
-      die(USAGE);
+      die(USAGE, 0);
     }
 
     final GraphQLWebClient client = new GraphQLWebClient(ENDPOINT_URL, token);
