@@ -1,6 +1,8 @@
 # Java API Example
 
-## Build and Test
+This is an example of how to use the [Warhorn API](https://warhorn.net/developers/docs/products/graphql-api/overview) in a Java application.
+
+## Build the app and run the tests
 
 ```sh
 $ ./gradlew build
@@ -9,7 +11,7 @@ BUILD SUCCESSFUL in 309ms
 7 actionable tasks: 7 up-to-date
 ```
 
-## Run
+## Run the app at the command line
 
 Before running the program, you must store a [Warhorn API access token](https://warhorn.net/developers/docs/guides/access-tokens) in the `WARHORN_API_TOKEN` environment variable.
 
@@ -29,9 +31,11 @@ $ ./gradlew run --args "bionic-dwarf test@example.com"
 
 BUILD SUCCESSFUL in 2s
 3 actionable tasks: 1 executed, 2 up-to-date
+
+Yes, this did actually run the tests! (*cough* test *cough*)
 ```
 
-## Credits
+## Credit where it is due
 
 The GraphQL code in this repository is a simplified "extract" from [GraphQL Spring Webclient](https://github.com/graphql-java-kickstart/graphql-spring-webclient). Many thanks to the [contributors](https://github.com/graphql-java-kickstart/graphql-spring-webclient/graphs/contributors)!
 
