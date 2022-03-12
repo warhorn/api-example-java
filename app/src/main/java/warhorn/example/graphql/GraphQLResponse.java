@@ -29,9 +29,9 @@ public class GraphQLResponse {
     try {
       return objectMapper.readTree(body);
     } catch (JsonMappingException e) {
-      throw new RuntimeException(e);
+      throw new GraphQLException("Error deserializaing GraphQL response", e);
     } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
+      throw new GraphQLException("Error deserializaing GraphQL response", e);
     }
   }
 }

@@ -17,7 +17,7 @@ class ApiTest {
   static final String TOKEN = "foobar";
 
   @Test
-  void testGetEvent() {
+  void testFetchEvent() {
     Event expected = new Event();
     expected.setId("123");
     expected.setTitle("test event");

@@ -33,7 +33,7 @@ public class GraphQLWebClient {
     try {
       return this.objectMapper.writeValueAsString(request);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new GraphQLException("Error serializing GraphQL request", e);
     }
   }
 }

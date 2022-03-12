@@ -39,7 +39,7 @@ public class GraphQLRequest {
       String query = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
       return new GraphQLRequest(query, operationName, variables);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new GraphQLException("Error loading GraphQL resource", e);
     }
   }
 }
