@@ -10,7 +10,8 @@ public class App {
   public static final String USAGE = """
       Usage: gradlew run --args SLUG EMAIL <ROLE>
 
-      Fetches the details of a Warhorn event registration.
+      Clears a Warhorn event registration to sign up for games. Optionally also assigns an
+      event role to the registration.
 
         SLUG:   the unique identifier for the event (found in Warhorn event page URLs)
         EMAIL:  the email address of the user whose registration you want to find
@@ -53,6 +54,13 @@ public class App {
         return;
       }
 
+      if (registration.isClearedForSignup()) {
+        printRegistrationAlreadyCleared();
+      } else {
+        api.clearRegistrationForSignup(registration);
+        printRegistrationCleared();
+      }
+
       if (roleName != null) {
         final EventRole roleToAssign = registration.getEvent().getRoles().stream()
             .filter(role -> role.getName().equals(roleName))
@@ -68,7 +76,7 @@ public class App {
         if (existingRole != null) {
           printRoleAlreadyAssigned(existingRole);
         } else {
-          registration = api.assignRegistrationRole(registration, roleToAssign);
+          api.assignRegistrationRole(registration, roleToAssign);
           printRoleAssigned(roleToAssign);
         }
       }
@@ -124,5 +132,15 @@ public class App {
   static void printRoleAssigned(EventRole role) {
     System.out.println(String.format(
         "\u2705 The %s role was assigned to the registration.", role.getName()));
+  }
+
+  static void printRegistrationAlreadyCleared() {
+    System.out.println(String.format(
+        "\u2705 The registration was already cleared for signup."));
+  }
+
+  static void printRegistrationCleared() {
+    System.out.println(String.format(
+        "\u2705 The registration was cleared for signup."));
   }
 }

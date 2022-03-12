@@ -30,6 +30,21 @@ public class Api {
     return response.get("assignRegistrationRole/registration", Registration.class);
   }
 
+  public Registration clearRegistrationForSignup(Registration registration) {
+    Map<String, Object> variables = new HashMap<String, Object>();
+    UpdateRegistrationInput input = new UpdateRegistrationInput(
+        registration.getId(), true);
+    variables.put("input", input);
+
+    GraphQLRequest request = GraphQLRequest.createFromResource(
+        "/UpdateRegistration.graphql",
+        "UpdateRegistration",
+        variables);
+    GraphQLResponse response = this.client.post(request);
+
+    return response.get("UpdateRegistration/registration", Registration.class);
+  }
+
   public GraphQLWebClient getClient() {
     return this.client;
   }

@@ -2,6 +2,9 @@
 
 This is an example of how to use the [Warhorn API](https://warhorn.net/developers/docs/products/graphql-api/overview) in a Java application.
 
+This example clears a Warhorn event registration to sign up for games. At the discretion
+of the caller, it can also assign an event role to the registration. The example shows how to use GraphQL queries and mutations to read and write data through the API.
+
 ## Build the app and run the tests
 
 ```text
@@ -27,13 +30,14 @@ Note that the app is actually run by Gradle. It requires you to wrap this progra
 
 ```text
 $ export WARHORN_API_TOKEN=<your API token>
-$ ./gradlew run --args "bionic-dwarf bcm@warhorn.net GM"
+$ ./gradlew run --args "test-event text@example.com GM"
 
 > Task :app:run
-✅ An active, cleared registration was found for bcm@warhorn.net at Bionic Dwarf.
+✅ An active, uncleared registration was found for test@example.com at Test Event.
+✅ The registration was cleared for signup.
 ✅ The GM role was assigned to the registration.
 
-BUILD SUCCESSFUL in 1s
+BUILD SUCCESSFUL in 2s
 3 actionable tasks: 1 executed, 2 up-to-date
 ```
 

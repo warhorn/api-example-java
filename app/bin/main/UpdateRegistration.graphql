@@ -1,0 +1,7 @@
+mutation UpdateRegistration($input: UpdateRegistrationInput!) {
+  updateRegistration(input: $input) {
+    registration {
+      id
+    }
+  }
+}
