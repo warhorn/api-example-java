@@ -16,9 +16,11 @@ public class App {
     return this.client;
   }
 
-  public String getEvent(String slug) {
+  public Event getEvent(String slug) {
     GetEventRequest request = new GetEventRequest(slug);
-    return this.client.post(request);
+    GraphQLResponse response = this.client.post(request);
+
+    return response.get("event", Event.class);
   }
 
   public static void main(String[] args) {
@@ -33,6 +35,6 @@ public class App {
     GraphQLWebClient client = new GraphQLWebClient(ENDPOINT_URL, token);
     App app = new App(client);
 
-    System.out.println(app.getEvent(slug));
+    System.out.println(String.format("Event: %s", app.getEvent(slug).getTitle()));
   }
 }

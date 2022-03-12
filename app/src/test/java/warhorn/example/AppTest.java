@@ -13,13 +13,18 @@ class AppTest {
 
   @Test
   void appGetsAnEvent() {
-    String expected = "mock value";
+    Event expected = new Event();
+    expected.setId("123");
+    expected.setTitle("test event");
+
+    GraphQLResponse response = Mockito.mock(GraphQLResponse.class);
+    Mockito.when(response.get("event", Event.class)).thenReturn(expected);
 
     GraphQLWebClient client = Mockito.mock(GraphQLWebClient.class);
-    Mockito.when(client.post(ArgumentMatchers.any())).thenReturn(expected);
+    Mockito.when(client.post(ArgumentMatchers.any(GetEventRequest.class))).thenReturn(response);
 
     App app = new App(client);
-    String actual = app.getEvent(SLUG);
+    Event actual = app.getEvent(SLUG);
 
     assertEquals(expected, actual);
   }
