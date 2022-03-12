@@ -11,12 +11,15 @@ BUILD SUCCESSFUL in 309ms
 
 ## Run
 
+Before running the program, you must store a [Warhorn API](https://warhorn.net/developers/docs/guides/access-tokens) token in the `WARHORN_API_TOKEN` environment variable.
+
 ```sh
-$ ./gradlew run --args "paizocon-2022 <your Warhorn access token>"
+$ export WARHORN_API_TOKEN=<your API token>
+$ ./gradlew run --args paizocon-2022
 
 > Task :app:run
-{"data":{"event":{"id":"RXZlbnQtNzcyMw==","title":"PaizoCon 2022"}}}
+Event: PaizoCon 2022
 
 BUILD SUCCESSFUL in 1s
-2 actionable tasks: 1 executed, 1 up-to-date
+3 actionable tasks: 1 executed, 2 up-to-date
 ```
