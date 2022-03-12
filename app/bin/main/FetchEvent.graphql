@@ -1,4 +1,4 @@
-query GetEvent($slug: String!) {
+query FetchEvent($slug: String!) {
   event(slug: $slug) {
     id
     title
