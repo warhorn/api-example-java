@@ -30,3 +30,9 @@ $ ./gradlew run --args "bionic-dwarf test@example.com"
 BUILD SUCCESSFUL in 2s
 3 actionable tasks: 1 executed, 2 up-to-date
 ```
+
+## Credits
+
+The GraphQL code in this repository is a simplified "extract" from [GraphQL Spring Webclient](https://github.com/graphql-java-kickstart/graphql-spring-webclient). Many thanks to the [contributors](https://github.com/graphql-java-kickstart/graphql-spring-webclient/graphs/contributors)!
+
+I chose not to use that library directly because I'm not working in a Spring Boot context and I didn't want to drag along all of that baggage. Understanding and reproducing a streamlined version of the original work was also a nice way to dip my toe back into Java after 10+ years off.
