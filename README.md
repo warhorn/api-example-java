@@ -11,6 +11,8 @@ BUILD SUCCESSFUL in 309ms
 7 actionable tasks: 7 up-to-date
 ```
 
+Yes, this did actually run the tests! (*cough* test (singular) *cough*)
+
 ## Run the app at the command line
 
 Before running the program, you must store a [Warhorn API access token](https://warhorn.net/developers/docs/guides/access-tokens) in the `WARHORN_API_TOKEN` environment variable.
@@ -32,8 +34,6 @@ $ ./gradlew run --args "bionic-dwarf test@example.com"
 BUILD SUCCESSFUL in 2s
 3 actionable tasks: 1 executed, 2 up-to-date
 ```
-
-Yes, this did actually run the tests! (*cough* test *cough*)
 
 ## Credit where it is due
 
