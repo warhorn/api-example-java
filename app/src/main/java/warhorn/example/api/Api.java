@@ -1,6 +1,8 @@
 package warhorn.example.api;
 
 import java.util.HashMap;
+import warhorn.example.graphql.GraphQLError;
+import warhorn.example.graphql.GraphQLErrorsException;
 import warhorn.example.graphql.GraphQLRequest;
 import warhorn.example.graphql.GraphQLResponse;
 import warhorn.example.graphql.GraphQLWebClient;
@@ -28,5 +30,26 @@ public class Api {
     GraphQLResponse response = this.client.post(request);
 
     return response.get("eventRegistration", Registration.class);
+  }
+
+  public interface ApiCaller {
+    public void call();
+  }
+
+  public interface ApiErrorHandler {
+    public void onError();
+  }
+
+  public void doWithErrorHandling(ApiCaller caller, ApiErrorHandler handler) {
+    try {
+      caller.call();
+    } catch (GraphQLErrorsException e) {
+      for (GraphQLError error : e.getErrors()) {
+        System.err.println(String.format("GraphQL error: %s (%s)", error.getMessage(),
+            String.join("/", error.getPath())));
+      }
+
+      handler.onError();
+    }
   }
 }

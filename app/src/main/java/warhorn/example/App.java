@@ -2,8 +2,6 @@ package warhorn.example;
 
 import warhorn.example.api.Api;
 import warhorn.example.api.Registration;
-import warhorn.example.graphql.GraphQLError;
-import warhorn.example.graphql.GraphQLErrorsException;
 import warhorn.example.graphql.GraphQLWebClient;
 
 public class App {
@@ -23,40 +21,57 @@ public class App {
 
   public static void main(String[] args) {
     if (args.length != 2) {
-      System.err.println(USAGE);
-      System.exit(-1);
+      die(USAGE);
     }
+
     String slug = args[0];
     String email = args[1];
 
     String token = System.getenv("WARHORN_API_TOKEN");
     if (token == null) {
-      System.err.println(USAGE);
-      System.exit(-1);
+      die(USAGE);
     }
 
     GraphQLWebClient client = new GraphQLWebClient(ENDPOINT_URL, token);
     Api api = new Api(client);
 
-    try {
+    api.doWithErrorHandling(() -> {
       Registration registration = api.fetchEventRegistration(slug, email);
 
-      if (registration != null) {
-        System.out.println(String.format("Found an %s, %s registration for %s at %s.",
-            registration.getActivationState().toString().toLowerCase(),
-            registration.isClearedForSignup() ? "cleared" : "uncleared",
-            registration.getRegistrant().getEmail(),
-            registration.getEvent().getTitle()));
-      } else {
-        System.out.println("Registration not found. Double-check the slug and email address.");
-      }
-    } catch (GraphQLErrorsException e) {
-      for (GraphQLError error : e.getErrors()) {
-        System.err.println(String.format("GraphQL error: %s (%s)", error.getMessage(),
-            String.join("/", error.getPath())));
+      if (registration == null) {
+        printRegistrationNotFoundBanner();
+        return;
       }
 
-      System.exit(-2);
+      printRegistrationFoundBanner(registration);
+    }, () -> die("\n\u274C Aborting due to API errors.", -2));
+  }
+
+  static void die(String message, int exitValue) {
+    if (message != null) {
+      System.err.println(message);
     }
+    System.exit(exitValue);
+  }
+
+  static void die(String message) {
+    die(message, -1);
+  }
+
+  static void die(int exitValue) {
+    die(null, exitValue);
+  }
+
+  static void printRegistrationFoundBanner(Registration registration) {
+    System.out.println(String.format("\u2705 Found an %s, %s registration for %s at %s.",
+        registration.getActivationState().toString().toLowerCase(),
+        registration.isClearedForSignup() ? "cleared" : "uncleared",
+        registration.getRegistrant().getEmail(),
+        registration.getEvent().getTitle()));
+  }
+
+  static void printRegistrationNotFoundBanner() {
+    System.out.println(
+        "\u274C Registration not found. Double-check the event slug and email address.");
   }
 }
