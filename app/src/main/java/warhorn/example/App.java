@@ -12,7 +12,7 @@ public class App {
       Fetches the details of a Warhorn event registration.
 
         SLUG:   the unique identifier for the event (found in Warhorn event page URLs)
-        EMAIL:  the email address of the user registered for the event
+        EMAIL:  the email address of the user whose registration you want to find
 
       The WARHORN_API_TOKEN environment variable must contain a user or application access
       token for the Warhorn API. See https://warhorn.net/developers/docs/guides/access-tokens
