@@ -1,12 +1,13 @@
 package warhorn.example.api;
 
 public class Registration {
-  private String email;
+  private String activationState;
   private Event event;
   private String id;
+  private User registrant;
 
-  public String getEmail() {
-    return email;
+  public String getActivationState() {
+    return activationState;
   }
 
   public Event getEvent() {
@@ -17,8 +18,12 @@ public class Registration {
     return id;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public User getRegistrant() {
+    return registrant;
+  }
+
+  public void setActivationState(String activationState) {
+    this.activationState = activationState;
   }
 
   public void setEvent(Event event) {
@@ -27,5 +32,9 @@ public class Registration {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public void setRegistrant(User registrant) {
+    this.registrant = registrant;
   }
 }

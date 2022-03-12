@@ -41,8 +41,14 @@ public class App {
     try {
       Registration registration = api.fetchEventRegistration(slug, email);
 
-      System.out.println(String.format("Event: %s", registration.getEvent().getTitle()));
-      System.out.println(String.format("Registration: %s", registration.getEmail()));
+      if (registration != null) {
+        System.out.println(
+            String.format("Event: %s", registration.getEvent().getTitle()));
+        System.out.println(
+            String.format("Registration: %s", registration.getRegistrant().getEmail()));
+      } else {
+        System.out.println("Registration not found");
+      }
     } catch (GraphQLErrorsException e) {
       for (GraphQLError error : e.getErrors()) {
         System.err.println(String.format("GraphQL error: %s (%s)", error.getMessage(),

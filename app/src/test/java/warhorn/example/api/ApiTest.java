@@ -20,8 +20,6 @@ class ApiTest {
   @Test
   void testFetchEvent() {
     Registration expected = new Registration();
-    expected.setId("123");
-    expected.setEmail("text@example.com");
 
     GraphQLResponse response = Mockito.mock(GraphQLResponse.class);
     Mockito.when(response.get("eventRegistration", Registration.class)).thenReturn(expected);
