@@ -4,7 +4,6 @@
 package warhorn.example;
 
 import org.mockito.*;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,14 +11,14 @@ class AppTest {
   static final String SLUG = "deadbeef";
   static final String TOKEN = "foobar";
 
-  @Disabled("Mocking doesn't work for some reason I haven't figured out yet")
   @Test
   void appGetsAnEvent() {
     String expected = "mock value";
 
-    App app = Mockito.mock(App.class, TOKEN);
-    Mockito.when(app.postGraphQLRequest(ArgumentMatchers.any())).thenReturn(expected);
+    GraphQLWebClient client = Mockito.mock(GraphQLWebClient.class);
+    Mockito.when(client.post(ArgumentMatchers.any())).thenReturn(expected);
 
+    App app = new App(client);
     String actual = app.getEvent(SLUG);
 
     assertEquals(expected, actual);

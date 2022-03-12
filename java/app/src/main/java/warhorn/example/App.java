@@ -1,35 +1,24 @@
 package warhorn.example;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.reactive.function.client.WebClient;
-
 public class App {
   public static final String ENDPOINT_URL = "https://staging.warhorn.net/graphql";
   public static final String USAGE = """
       Usage: gradlew run --args \"EVENT_SLUG APP_TOKEN\"
       """;
 
-  private final WebClient client;
-  private final String token;
+  private final GraphQLWebClient client;
 
-  App(String token) {
-    this.client = WebClient.create(ENDPOINT_URL);
-    this.token = token;
+  App(GraphQLWebClient client) {
+    this.client = client;
   }
 
-  public String postGraphQLRequest(GetEventRequest request) {
-    return this.client.post()
-      .header("Authorization", String.format("Bearer %s", this.token))
-      .contentType(MediaType.APPLICATION_JSON)
-      .accept(MediaType.APPLICATION_JSON)
-      .bodyValue(request.bodyValue())
-      .retrieve()
-      .bodyToMono(String.class).block();
+  public GraphQLWebClient getClient() {
+    return this.client;
   }
 
   public String getEvent(String slug) {
     GetEventRequest request = new GetEventRequest(slug);
-    return this.postGraphQLRequest(request);
+    return this.client.post(request);
   }
 
   public static void main(String[] args) {
@@ -41,7 +30,8 @@ public class App {
     String slug = args[0];
     String token = args[1];
 
-    App app = new App(token);
+    GraphQLWebClient client = new GraphQLWebClient(ENDPOINT_URL, token);
+    App app = new App(client);
 
     System.out.println(app.getEvent(slug));
   }

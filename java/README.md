@@ -5,7 +5,6 @@
 ```sh
 $ ./gradlew build
 
-
 BUILD SUCCESSFUL in 309ms
 7 actionable tasks: 7 up-to-date
 ```
